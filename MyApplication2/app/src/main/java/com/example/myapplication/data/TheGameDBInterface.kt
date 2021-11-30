@@ -23,14 +23,16 @@ interface TheGameDBInterface {
 
     //games
    // https://api.rawg.io/api/games?key=6b028c60421148cd8cae86906ddd1a4d&genres=4&page=51&page_size=2
-    @GET("games")
-    fun getGames(@Query("key") key:String,
-                  @Query("page") page: Int,
-                  @Query("page_size") page_size: Int?,): Single<GameResponse>
-
 
     //search
     //https://api.rawg.io/api/games?key=6b028c60421148cd8cae86906ddd1a4d&search=grand&page=2&genres=4
+
+    @GET("games")
+    fun getGames(@Query("key") key:String,
+                  @Query("page") page: Int,
+                  @Query("page_size") page_size: Int,
+                 @Query("search") search: Int?,): Single<GameResponse>
+
 
 
 

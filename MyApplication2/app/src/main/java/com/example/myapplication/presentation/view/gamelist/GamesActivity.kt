@@ -1,37 +1,38 @@
-package com.example.myapplication.presentation.view.genreslist
+package com.example.myapplication.presentation.view.gamelist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.myapplication.R.layout.activity_main
+import com.example.myapplication.R
+import com.example.myapplication.data.Game
 import com.example.myapplication.data.NetworkState
-import com.example.myapplication.presentation.viewmodel.GenresViewModel
+import com.example.myapplication.presentation.view.genreslist.GenresPagedListAdapter
+import com.example.myapplication.presentation.viewmodel.GameViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+class GamesActivity : AppCompatActivity() {
 
-class GenresActivity : AppCompatActivity() {
-
-    private lateinit var viewModel: GenresViewModel
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(activity_main)
+        setContentView(R.layout.activity_main)
 
         viewModel = getViewModel()
 
-        val genresAdapter = GenresPagedListAdapter(this)
+        val gamesAdapter = GamesPagedListAdapter(this)
 
         val gridLayoutManager = GridLayoutManager(this, 3)
 
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                val viewType = genresAdapter.getItemViewType(position)
-                if (viewType == genresAdapter.GAME_VIEW_TYPE) return  1    // Movie_VIEW_TYPE will occupy 1 out of 3 span
+                val viewType = gamesAdapter.getItemViewType(position)
+                if (viewType == gamesAdapter.GAME_VIEW_TYPE) return  1    // Movie_VIEW_TYPE will occupy 1 out of 3 span
                 else return 3                                              // NETWORK_VIEW_TYPE will occupy all 3 span
             }
         };
@@ -39,10 +40,10 @@ class GenresActivity : AppCompatActivity() {
 
         rv_movie_list.layoutManager = gridLayoutManager
         rv_movie_list.setHasFixedSize(true)
-        rv_movie_list.adapter = genresAdapter
+        rv_movie_list.adapter = gamesAdapter
 
-        viewModel.genresPagedList.observe(this, Observer {
-            genresAdapter.submitList(it)
+        viewModel.gamesPagedList.observe(this, Observer {
+            gamesAdapter.submitList(it)
         })
 
         viewModel.networkState.observe(this, Observer {
@@ -50,20 +51,19 @@ class GenresActivity : AppCompatActivity() {
             txt_error_popular.visibility = if (viewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
 
             if (!viewModel.listIsEmpty()) {
-                genresAdapter.setNetworkState(it)
+                gamesAdapter.setNetworkState(it)
             }
         })
 
     }
 
-    private fun getViewModel(): GenresViewModel {
+    private fun getViewModel(): GameViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return GenresViewModel() as T
+                return GameViewModel() as T
             }
-        })[GenresViewModel::class.java]
+        })[GameViewModel::class.java]
     }
-
 
 }

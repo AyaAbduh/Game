@@ -21,7 +21,7 @@ class GenresPagedListAdapter(public val context: Context) : PagedListAdapter<Gen
     MovieDiffCallback()
 ) {
 
-    val MOVIE_VIEW_TYPE = 1
+    val GAME_VIEW_TYPE = 1
     val NETWORK_VIEW_TYPE = 2
 
     private var networkState: NetworkState? = null
@@ -31,7 +31,7 @@ class GenresPagedListAdapter(public val context: Context) : PagedListAdapter<Gen
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View
 
-        if (viewType == MOVIE_VIEW_TYPE) {
+        if (viewType == GAME_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
             return MovieItemViewHolder(view)
         } else {
@@ -41,7 +41,7 @@ class GenresPagedListAdapter(public val context: Context) : PagedListAdapter<Gen
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == MOVIE_VIEW_TYPE) {
+        if (getItemViewType(position) == GAME_VIEW_TYPE) {
             (holder as MovieItemViewHolder).bind(getItem(position),context)
         }
         else {
@@ -62,7 +62,7 @@ class GenresPagedListAdapter(public val context: Context) : PagedListAdapter<Gen
         return if (hasExtraRow() && position == itemCount - 1) {
             NETWORK_VIEW_TYPE
         } else {
-            MOVIE_VIEW_TYPE
+            GAME_VIEW_TYPE
         }
     }
 

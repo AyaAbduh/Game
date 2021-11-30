@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,18 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".presentation.view.genreslist.GenresActivity">
+        <activity android:name=".presentation.view.gamelist.GamesActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
-
-        <activity android:name=".presentation.view.singlegamedetails.SingleGame">
-
+        <activity android:name=".presentation.view.genreslist.GenresActivity">
         </activity>
+        <activity android:name=".presentation.view.singlegamedetails.SingleGame"></activity>
     </application>
 
 </manifest>

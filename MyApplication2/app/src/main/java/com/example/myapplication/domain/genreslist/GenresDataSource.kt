@@ -30,7 +30,7 @@ class GenresDataSource (private val apiService : TheGameDBInterface, private val
                     },
                     {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("GameDataSource", it.message.toString())
+                        Log.e("GenresDataSource", it.message.toString())
                     }
                 )
         )
@@ -55,7 +55,7 @@ class GenresDataSource (private val apiService : TheGameDBInterface, private val
                     },
                     {
                         networkState.postValue(NetworkState.ERROR)
-                        Log.e("GameDataSource", it.message.toString())
+                        Log.e("GenresDataSource", it.message.toString())
                     }
                 )
         )
