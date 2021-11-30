@@ -31,10 +31,10 @@ class GamesActivity : AppCompatActivity() {
 
         val gamesAdapter = GamesPagedListAdapter(this)
         val gridLayoutManager = GridLayoutManager(this, 3)
-        viewModel = getViewModel("")
+        viewModel = getViewModel("",4)
 
         editTextTextPersonName.addTextChangedListener {
-            viewModel = getViewModel(it.toString())
+            viewModel.search(it.toString())
         }
 
         imageView.setOnClickListener {
@@ -71,11 +71,11 @@ class GamesActivity : AppCompatActivity() {
 
     }
 
-    private fun getViewModel(search :String): GameViewModel {
+    private fun getViewModel(search :String,genres:Int): GameViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return GameViewModel(search) as T
+                return GameViewModel(search,genres) as T
             }
         })[GameViewModel::class.java]
     }

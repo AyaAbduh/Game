@@ -7,7 +7,7 @@ import com.example.myapplication.data.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class GamesDataSource (private val apiService : TheGameDBInterface, private val compositeDisposable: CompositeDisposable,private var searchString:String)
+class GamesDataSource (private val apiService : TheGameDBInterface, private val compositeDisposable: CompositeDisposable,private var searchString:String,private var genres:Int)
     : PageKeyedDataSource<Int, Game>(){
 
    private var page = 1
@@ -21,7 +21,7 @@ class GamesDataSource (private val apiService : TheGameDBInterface, private val 
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getGames("6b028c60421148cd8cae86906ddd1a4d",page,pageSize,searchString)
+            apiService.getGames("6b028c60421148cd8cae86906ddd1a4d",page,pageSize,searchString,genres)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {
@@ -40,7 +40,7 @@ class GamesDataSource (private val apiService : TheGameDBInterface, private val 
         networkState.postValue(NetworkState.LOADING)
 
         compositeDisposable.add(
-            apiService.getGames("6b028c60421148cd8cae86906ddd1a4d",params.key,pageSize,searchString)
+            apiService.getGames("6b028c60421148cd8cae86906ddd1a4d",params.key,pageSize,searchString,genres)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {

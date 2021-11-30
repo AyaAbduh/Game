@@ -8,7 +8,7 @@ import com.example.myapplication.domain.genreslist.GamesPagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 
-class GameViewModel(var search:String) : ViewModel() {
+class GameViewModel(var search:String,var genres: Int) : ViewModel() {
 
         private val compositeDisposable = CompositeDisposable()
         private  val apiService : TheGameDBInterface = TheGameDBClient.getClient()
@@ -16,7 +16,11 @@ class GameViewModel(var search:String) : ViewModel() {
         private  var gamesRepository = GamesPagedListRepository(apiService)
 
         val  gamesPagedList : LiveData<PagedList<Game>> by lazy {
-            gamesRepository.fetchLiveGamePagedList(compositeDisposable,search)
+            gamesRepository.fetchLiveGamePagedList(compositeDisposable,search,genres)
+        }
+
+        fun search (search: String){
+            gamesRepository.fetchLiveGamePagedList(compositeDisposable,search,genres)
         }
 
         val  networkState : LiveData<NetworkState> by lazy {
