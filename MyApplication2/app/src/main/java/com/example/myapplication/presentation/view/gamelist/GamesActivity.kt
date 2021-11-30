@@ -1,5 +1,6 @@
 package com.example.myapplication.presentation.view.gamelist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.data.NetworkState
+import com.example.myapplication.presentation.view.genreslist.GenresActivity
+import com.example.myapplication.presentation.view.singlegamedetails.SingleGame
 import com.example.myapplication.presentation.viewmodel.GameViewModel
 import kotlinx.android.synthetic.main.activity_games.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,14 +29,19 @@ class GamesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_games)
 
+        val gamesAdapter = GamesPagedListAdapter(this)
+        val gridLayoutManager = GridLayoutManager(this, 3)
+        viewModel = getViewModel("")
+
         editTextTextPersonName.addTextChangedListener {
             viewModel = getViewModel(it.toString())
-
         }
-        viewModel = getViewModel("")
-        val gamesAdapter = GamesPagedListAdapter(this)
 
-        val gridLayoutManager = GridLayoutManager(this, 3)
+        imageView.setOnClickListener {
+            val intent = Intent(this, GenresActivity::class.java)
+            startActivity(intent)
+        }
+
 
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

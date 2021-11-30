@@ -8,7 +8,7 @@ import com.example.myapplication.domain.genreslist.GamesPagedListRepository
 import io.reactivex.disposables.CompositeDisposable
 
 
-    class GameViewModel(var search:String) : ViewModel() {
+class GameViewModel(var search:String) : ViewModel() {
 
         private val compositeDisposable = CompositeDisposable()
         private  val apiService : TheGameDBInterface = TheGameDBClient.getClient()
