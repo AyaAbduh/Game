@@ -31,7 +31,7 @@ interface TheGameDBInterface {
     fun getGames(@Query("key") key:String,
                   @Query("page") page: Int,
                   @Query("page_size") page_size: Int,
-                 @Query("search") search: Int?,): Single<GameResponse>
+                 @Query("search") search: String?,): Single<GameResponse>
 
 
 

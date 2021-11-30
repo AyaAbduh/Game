@@ -14,8 +14,8 @@ class GamesPagedListRepository (private val apiService : TheGameDBInterface) {
     lateinit var genresPagedList: LiveData<PagedList<Game>>
     lateinit var gamesDataSourceFactory: GamesDataSourceFactory
 
-    fun fetchLiveGamePagedList (compositeDisposable: CompositeDisposable) : LiveData<PagedList<Game>> {
-        gamesDataSourceFactory = GamesDataSourceFactory(apiService, compositeDisposable)
+    fun fetchLiveGamePagedList (compositeDisposable: CompositeDisposable,search:String) : LiveData<PagedList<Game>> {
+        gamesDataSourceFactory = GamesDataSourceFactory(apiService, compositeDisposable,search)
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
